@@ -1,0 +1,31 @@
+# Node modules
+node_modules/
+
+# pnpm store
+.pnpm-store/
+
+# Logs
+*.log
+yarn-debug.log*
+pnpm-debug.log*
+npm-debug.log*
+
+# Build output
+dist/
+build/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Vite cache
+.vite/
+
+# IDE settings
+.vscode/
+.idea/
+
+# Mac system files
+.DS_Store
+
+# Env files
+.env*
