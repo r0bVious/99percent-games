@@ -10,7 +10,14 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@shared/*": ["shared/src/*"]
+      "@shared/*": ["shared/src/*"],
+      "@utils/*": ["shared/utils/*"]
     }
-  }
+  },
+  "files": [],
+  "references": [
+    { "path": "./backend" },
+    { "path": "./shared" },
+    { "path": "./games/roulette" }
+  ]
 }

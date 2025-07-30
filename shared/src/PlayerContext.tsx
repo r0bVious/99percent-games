@@ -1,20 +1,18 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { getUserPoints, updateUserPoints } from "./mockDbClient";
+import React, { createContext, useContext, useState } from "react";
+import api from "@utils/api";
 
 interface Player {
   userId: string;
   isLoggedIn: boolean;
-  points: number;
 }
 
 interface PlayerContextValue {
   player: Player | null;
-  playerPoints: number;
+  playerPoints: number | null;
   loading: boolean;
   error: Error | null;
-  login: (userId: string) => void;
+  login: (userId: number) => void;
   logout: () => void;
-  betPoints: (amount: number) => Promise<void>;
 }
 
 const PlayerContext = createContext<PlayerContextValue | undefined>(undefined);
@@ -23,42 +21,26 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [player, setPlayer] = useState<Player | null>(null);
-  const [playerPoints, setPlayerPoints] = useState<number>(player?.points || 0);
+  const [playerPoints, setPlayerPoints] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const betPoints = async (amount: number) => {
-    if (!player) {
-      setError(new Error("Not logged in"));
-      return;
-    }
+  const login = (userId: number) => {
     setLoading(true);
-    setError(null);
-    try {
-      if (amount > playerPoints) throw new Error("Not enough points to bet");
-      const newPoints = playerPoints - amount;
-      await updateUserPoints(player.userId, newPoints);
-      setPlayerPoints(newPoints);
-    } catch (err) {
-      setError(err as Error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // const login = (userId: string) => {
-  //   const points = 100;
-  //   setPlayer({ userId, isLoggedIn: true, points });
-  //   setPlayerPoints(points);
-  // };
-
-  //delayed to test loading state
-  const login = (userId: string) => {
-    setLoading(true);
-    setTimeout(() => {
-      const points = 100;
-      setPlayer({ userId, isLoggedIn: true, points });
-      setPlayerPoints(points);
+    setTimeout(async () => {
+      try {
+        const res = await api.post("/login", { userId: userId });
+        console.log(res.data);
+        if (res && res.data) {
+          setPlayer({
+            userId: res.data.playerId,
+            isLoggedIn: true,
+          });
+          setPlayerPoints(res.data.points);
+        }
+      } catch (error) {
+        console.error("Error logging in:", error);
+      }
       setLoading(false);
     }, 1000);
   };
@@ -77,7 +59,6 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({
         error,
         login,
         logout,
-        betPoints,
       }}
     >
       {children}

@@ -25,7 +25,7 @@ export const Layout: React.FC<{
             </>
           ) : (
             <button
-              onClick={() => login("user1")}
+              onClick={() => login(1)}
               className="text-blue-600 underline"
             >
               Login

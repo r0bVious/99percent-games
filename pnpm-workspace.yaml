@@ -1,6 +1,7 @@
 packages:
   - shared
   - games/*
+  - backend
 
 ignoredBuiltDependencies:
   - esbuild

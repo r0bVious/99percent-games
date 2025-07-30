@@ -1,15 +1,16 @@
 {
   "name": "99percent-games",
-  "version": "1.0.0",
   "private": true,
   "workspaces": [
     "shared",
-    "games/*"
+    "games/*",
+    "backend"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:roulette": "pnpm --filter roulette dev",
-    "dev:slot-machine": "pnpm --filter slot-machine dev"
+    "dev:slot-machine": "pnpm --filter slot-machine dev",
+    "dev:backend": "pnpm --filter backend dev"
   },
   "keywords": [],
   "author": "",
@@ -17,15 +18,25 @@
   "packageManager": "pnpm@10.13.1",
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
+    "@types/cors": "^2.8.19",
+    "axios": "^1.11.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^4.21.2",
+    "mysql2": "^3.14.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "tailwindcss": "^4.1.11"
+    "sequelize": "^6.37.7",
+    "tailwindcss": "^4.1.11",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
+    "@types/express": "^5.0.3",
     "@types/node": "^24.1.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.7.0",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3",
     "vite": "^7.0.6"
   }
