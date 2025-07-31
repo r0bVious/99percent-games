@@ -1,0 +1,31 @@
+.wheel {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: #eee;
+  overflow: hidden;
+}
+
+.slice {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  transform-origin: left center;
+  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+  background-color: rgba(100, 150, 255, 0.5);
+  border: 1px solid #ccc;
+}
+
+.slice-label {
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap;
+}

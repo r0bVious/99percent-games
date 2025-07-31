@@ -9,7 +9,7 @@ export const Layout: React.FC<{
   const { player, playerPoints, login, logout, loading } = usePlayer();
 
   return (
-    <div className="bg-gray-100 px-4 pt-4">
+    <div className="bg-gray-700 px-4 pt-4">
       <header className="flex justify-between items-center">
         <h1 className="text-xl font-bold">{gameName}</h1>
         <div className="flex items-center gap-4">
