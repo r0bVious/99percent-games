@@ -31,6 +31,7 @@ export const wheelSegments: Segment[] = [
 export const spinWheel = (
   betAmount: number
 ): {
+  index: number;
   label: string;
   multiplier: number;
   netChange: number;
@@ -44,6 +45,7 @@ export const spinWheel = (
   const netChange = returnedAmount - betAmount;
 
   return {
+    index: randomIndex,
     label: selected.label,
     multiplier: selected.multiplier,
     netChange,

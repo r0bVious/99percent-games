@@ -1,6 +1,23 @@
 @import "tailwindcss";
 @source "./*";
 
-body {
-  background-color: #2f2f2f;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@theme {
+  --animate-buttonBounce: buttonBounce 1s ease-in-out infinite;
+  @keyframes buttonBounce {
+    0%,
+    100% {
+      transform: rotate(-1deg);
+      scale: 1;
+    }
+    50% {
+      transform: rotate(1deg);
+      scale: 1.01;
+    }
+  }
 }

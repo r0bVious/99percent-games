@@ -9,9 +9,9 @@ export const Layout: React.FC<{
   const { player, playerPoints, login, logout, loading } = usePlayer();
 
   return (
-    <div className="bg-gray-700 px-4 pt-4">
-      <header className="flex justify-between items-center">
-        <h1 className="text-xl font-bold">{gameName}</h1>
+    <div className="bg-gray-700 p-4">
+      <header className="flex justify-between items-center px2">
+        <h1 className="text-xl font-bold text-white">{gameName}</h1>
         <div className="flex items-center gap-4">
           {loading ? (
             <span>Loading...</span>
@@ -26,7 +26,7 @@ export const Layout: React.FC<{
           ) : (
             <button
               onClick={() => login(1)}
-              className="text-blue-600 underline"
+              className="text-blue-600 underline bg-white"
             >
               Login
             </button>

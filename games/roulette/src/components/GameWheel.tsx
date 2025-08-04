@@ -53,7 +53,12 @@ const GameWheel: React.FC<GameWheelProps> = ({ wheelData }) => {
   const anglePerSlice = 360 / wheelData.length;
 
   return (
-    <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`}>
+    <svg
+      width={SIZE}
+      height={SIZE}
+      viewBox={`0 0 ${SIZE} ${SIZE}`}
+      className="overflow-visible"
+    >
       {wheelData.map((segment, i) => {
         const startAngle = i * anglePerSlice;
         const endAngle = startAngle + anglePerSlice;
@@ -90,6 +95,7 @@ const GameWheel: React.FC<GameWheelProps> = ({ wheelData }) => {
           </g>
         );
       })}
+      <circle cx={RADIUS} cy={RADIUS} r={100} stroke="#FFF" strokeWidth={1} />;
     </svg>
   );
 };
