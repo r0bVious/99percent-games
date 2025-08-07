@@ -5,6 +5,7 @@ import cors from "cors";
 import { sequelize } from "../models/index";
 import { GameUser } from "../models/User";
 import rouletteRouter from "./roulette/routes";
+import slotMachineRouter from "./slot-machine/routes";
 
 const app = express();
 app.use(cors());
@@ -24,6 +25,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.use("/roulette", rouletteRouter);
+app.use("/slotmachine", slotMachineRouter);
 //add more routers for games
 
 const PORT = process.env.PORT || 3000;

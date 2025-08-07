@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --animate-rainbowDown: rainbowDown 0.75s linear infinite;
+
+  @keyframes rainbowDown {
+    0% {
+      background-position: 0% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+}
