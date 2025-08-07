@@ -25,8 +25,13 @@ type SpinResult = {
   netChange: number;
 };
 
+interface SpinResponse {
+  spinResult: SpinResult;
+  newPointTotal: number;
+}
+
 export default function App() {
-  const { player } = usePlayer();
+  const { player, setPlayerPoints } = usePlayer();
   const [gameData, setGameData] = useState<GameData>();
   const [isSpinning, setIsSpinning] = useState(false);
   const [resultGrid, setResultGrid] = useState<Symbol[][] | null>(null);
@@ -50,11 +55,11 @@ export default function App() {
     initGame();
   }, []);
 
-  const spin = async (userId: number): Promise<SpinResult | null> => {
+  const spin = async (userId: number): Promise<SpinResponse | null> => {
     setIsSpinning(true);
     try {
       const res = await api.post("/slotmachine/spin", { userId });
-      return res.data as SpinResult;
+      return res.data;
     } catch (error) {
       console.error("Spin failed:", error);
       return null;
@@ -62,13 +67,17 @@ export default function App() {
   };
 
   const handleSpin = async () => {
-    const spinResult = await spin(1);
-    if (!spinResult) return;
-    console.log(spinResult);
-    setResultGrid(spinResult.grid);
-    setModalInfo(getModalInfo(spinResult));
+    if (!player) return;
+
+    const response = await spin(player.userId);
+    if (!response) return;
+
+    setResultGrid(response.spinResult.grid);
+    setModalInfo(getModalInfo(response.spinResult));
+
     setTimeout(() => {
       setModalAlert(true);
+      setPlayerPoints(response.newPointTotal);
       setIsSpinning(false);
     }, 3500);
   };

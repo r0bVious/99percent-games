@@ -1,4 +1,4 @@
-import { GameUser } from "backend/models/User";
+import { HifiUser } from "backend/models/HifiUser";
 import express from "express";
 import { spinWheel, wheelSegments } from "./logic";
 
@@ -14,14 +14,15 @@ rouletteRouter.post("/spin", async (req, res) => {
   if (!userId) return res.status(400).json({ error: "Missing userId" });
 
   try {
-    const user = await GameUser.findByPk(userId);
+    const user = await HifiUser.findByPk(userId);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    const spinResult = spinWheel(user.points);
-    user.points += spinResult.netChange;
+    const spinResult = spinWheel(user.point);
+    const newPointTotal = user.point + spinResult.netChange;
+    user.point = newPointTotal;
     await user.save();
 
-    return res.json(spinResult);
+    return res.json({ spinResult, newPointTotal });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Internal server error" });

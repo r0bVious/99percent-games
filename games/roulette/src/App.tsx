@@ -16,7 +16,7 @@ export interface AnimationState {
 }
 
 export default function App() {
-  const { player } = usePlayer();
+  const { player, setPlayerPoints } = usePlayer();
   const [wheelData, setWheelData] = useState<Segment[]>([]);
   const [isSpinning, setIsSpinning] = useState(false);
   const [modalAlert, setModalAlert] = useState(false);
@@ -56,7 +56,9 @@ export default function App() {
     setIsSpinning(true);
     try {
       const res = await api.post("/roulette/spin", { userId });
-      return res.data;
+      if (!res?.data) return null;
+      const { spinResult, newPointTotal } = res.data;
+      return { ...spinResult, newPointTotal };
     } catch (error) {
       console.log(error);
       return null;
@@ -64,14 +66,16 @@ export default function App() {
   };
 
   const handleSpin = async () => {
-    const spinResult = await spin(1);
+    if (!player) return;
+
+    const spinResult = await spin(player?.userId);
     if (!spinResult || typeof spinResult.index !== "number") {
       console.error("Invalid spin result");
       return;
     }
 
-    const SEGMENT_COUNT = wheelData.length;
-    const segmentAngle = 360 / SEGMENT_COUNT;
+    const segmentCount = wheelData.length;
+    const segmentAngle = 360 / segmentCount;
     const fullRotations = Math.floor(Math.random() * 4 + 1);
 
     const targetAngle =
@@ -90,6 +94,10 @@ export default function App() {
     setTimeout(() => {
       setModalAlert(true);
       setIsSpinning(false);
+
+      if (typeof spinResult.newPointTotal === "number") {
+        setPlayerPoints(spinResult.newPointTotal);
+      }
     }, 5500);
   };
 
