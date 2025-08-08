@@ -17,7 +17,8 @@ slotMachineRouter.post("/spin", async (req, res) => {
     const user = await HifiUser.findByPk(userId);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    const spinResult = spinSlotMachine(user.point);
+    //TODO - placeholder 100 value
+    const spinResult = spinSlotMachine(100);
     const newPointTotal = user.point + spinResult.netChange;
     user.point = newPointTotal;
     await user.save();

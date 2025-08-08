@@ -17,7 +17,8 @@ rouletteRouter.post("/spin", async (req, res) => {
     const user = await HifiUser.findByPk(userId);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    const spinResult = spinWheel(user.point);
+    //TODO - placeholder 100 value
+    const spinResult = spinWheel(100);
     const newPointTotal = user.point + spinResult.netChange;
     user.point = newPointTotal;
     await user.save();

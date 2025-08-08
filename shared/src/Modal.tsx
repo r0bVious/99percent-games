@@ -45,11 +45,11 @@ const Modal: React.FC<ModalProps> = ({ gameName, modalInfo, onClose }) => {
         exit="exit"
         onClick={(e) => e.stopPropagation()}
       >
-        <h1 className="w-full bg-gray-700 p-4 text-white text-3xl">
+        <h1 className="w-full bg-gray-700 p-2 text-white text-2xl font-bold">
           {gameName}
         </h1>
         <div className="flex flex-col p-4 flex-grow justify-center gap-2">
-          <h2 className="text-2xl">
+          <h2 className="text-xl animate-pulse">
             {modalInfo?.win ? "You won!" : "You lose!"}
           </h2>
           <div>{modalInfo?.message}</div>

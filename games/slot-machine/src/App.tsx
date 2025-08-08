@@ -31,7 +31,7 @@ interface SpinResponse {
 }
 
 export default function App() {
-  const { player, setPlayerPoints } = usePlayer();
+  const { player, setPlayerPoints, setShowLoginModal } = usePlayer();
   const [gameData, setGameData] = useState<GameData>();
   const [isSpinning, setIsSpinning] = useState(false);
   const [resultGrid, setResultGrid] = useState<Symbol[][] | null>(null);
@@ -67,11 +67,22 @@ export default function App() {
   };
 
   const handleSpin = async () => {
-    if (!player) return;
+    if (isSpinning) return;
+    if (!player) {
+      setShowLoginModal(true);
+      return;
+    }
+
+    setIsSpinning(true);
 
     const response = await spin(player.userId);
-    if (!response) return;
+    if (!response) {
+      console.error("Invalid spin result");
+      setIsSpinning(false);
+      return;
+    }
 
+    console.log(response);
     setResultGrid(response.spinResult.grid);
     setModalInfo(getModalInfo(response.spinResult));
 
@@ -99,7 +110,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-8 size-full bg-gradient-to-t from-black to-gray-900">
+    <div className="flex flex-col justify-center items-center size-full bg-gradient-to-t from-black to-gray-900 py-10">
       <div className="flex flex-col justify-center items-center">
         <div className="text-yellow-300 text-3xl font-bold tracking-widest text-center border-x-4 border-t-4 border-gray-600 rounded-t-lg w-2/3 p-2 bg-gray-800">
           Jackpot Slots

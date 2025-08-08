@@ -16,7 +16,7 @@ export interface AnimationState {
 }
 
 export default function App() {
-  const { player, setPlayerPoints } = usePlayer();
+  const { player, setPlayerPoints, setShowLoginModal } = usePlayer();
   const [wheelData, setWheelData] = useState<Segment[]>([]);
   const [isSpinning, setIsSpinning] = useState(false);
   const [modalAlert, setModalAlert] = useState(false);
@@ -66,7 +66,10 @@ export default function App() {
   };
 
   const handleSpin = async () => {
-    if (!player) return;
+    if (!player) {
+      setShowLoginModal(true);
+      return;
+    }
 
     const spinResult = await spin(player?.userId);
     if (!spinResult || typeof spinResult.index !== "number") {
@@ -132,7 +135,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative p-12 bg-black">
+    <div className="relative p-12 bg-black flex justify-center items-center size-full">
       <div className="relative flex flex-col gap-12 justify-center items-center">
         <motion.div
           animate={wheelAnimation.animate}
@@ -140,10 +143,19 @@ export default function App() {
         >
           <GameWheel wheelData={wheelData} />
         </motion.div>
+        <button
+          onClick={handleSpin}
+          className={`absolute px-8 py-3 bg-blue-500 text-white text-lg font-bold border-2 border-white rounded-xl disabled:opacity-50 ${
+            modalAlert ? "" : "animate-buttonBounce"
+          }`}
+          disabled={isSpinning}
+        >
+          {isSpinning ? "Spinning..." : "Spin!"}
+        </button>
         <div
           className="absolute left-1/2 -translate-x-1/2 animate-bounce"
           style={{
-            top: "calc(50% - 155px)",
+            top: "calc(50% - 100px)",
           }}
         >
           <div
@@ -154,15 +166,6 @@ export default function App() {
       pointer-events-none z-10"
           />
         </div>
-        <button
-          onClick={handleSpin}
-          className={`px-8 py-4 bg-blue-500 text-white border-2 border-white rounded-xl disabled:opacity-50 ${
-            modalAlert ? "" : "animate-buttonBounce"
-          }`}
-          disabled={isSpinning}
-        >
-          Spin!
-        </button>
       </div>
       <AnimatePresence>
         {modalAlert && (

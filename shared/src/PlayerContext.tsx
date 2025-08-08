@@ -17,6 +17,8 @@ interface PlayerContextValue {
   error: Error | null;
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;
+  setShowLoginModal: (value: boolean) => void;
+  showLoginModal: boolean;
 }
 
 const PlayerContext = createContext<PlayerContextValue | undefined>(undefined);
@@ -28,6 +30,7 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({
   const [playerPoints, setPlayerPoints] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const login = async (username: string, password: string) => {
     setLoading(true);
@@ -71,6 +74,8 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({
         error,
         login,
         logout,
+        setShowLoginModal,
+        showLoginModal,
       }}
     >
       {children}
