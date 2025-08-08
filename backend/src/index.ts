@@ -6,6 +6,7 @@ import { sequelize } from "../models/index";
 import { HifiUser } from "../models/HifiUser";
 import rouletteRouter from "./roulette/routes";
 import slotMachineRouter from "./slot-machine/routes";
+import luckyDropRouter from "./lucky-drop/routes";
 
 const app = express();
 app.use(cors());
@@ -41,6 +42,7 @@ app.post("/login", async (req, res) => {
 
 app.use("/roulette", rouletteRouter);
 app.use("/slotmachine", slotMachineRouter);
+app.use("/luckydrop", luckyDropRouter);
 //add more routers for games
 
 const PORT = process.env.PORT || 3000;

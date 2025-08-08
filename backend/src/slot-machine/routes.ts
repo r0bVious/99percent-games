@@ -1,15 +1,15 @@
 import { HifiUser } from "backend/models/HifiUser";
 import express from "express";
-import { spinSlotMachine, reels } from "./logic";
+import { playGame, gameData } from "./logic";
 
 const slotMachineRouter = express.Router();
 
 slotMachineRouter.get("/", async (req, res) => {
-  if (reels !== null) return res.status(200).json({ reels });
+  if (gameData !== null) return res.status(200).json(gameData);
   return res.status(404).json("Missing required game structure data.");
 });
 
-slotMachineRouter.post("/spin", async (req, res) => {
+slotMachineRouter.post("/play", async (req, res) => {
   const userId = req.body.userId;
   if (!userId) return res.status(400).json({ error: "Missing userId" });
 
@@ -18,12 +18,12 @@ slotMachineRouter.post("/spin", async (req, res) => {
     if (!user) return res.status(404).json({ message: "User not found" });
 
     //TODO - placeholder 100 value
-    const spinResult = spinSlotMachine(100);
-    const newPointTotal = user.point + spinResult.netChange;
+    const playResult = playGame(100);
+    const newPointTotal = user.point + playResult.netChange;
     user.point = newPointTotal;
     await user.save();
 
-    return res.json({ spinResult, newPointTotal });
+    return res.json({ playResult, newPointTotal });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Internal server error" });

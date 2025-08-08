@@ -1,15 +1,14 @@
 import { HifiUser } from "backend/models/HifiUser";
 import express from "express";
-import { playGame, gameData } from "./logic";
+import { playGame } from "./logic";
 
-const rouletteRouter = express.Router();
+const luckyDropRouter = express.Router();
 
-rouletteRouter.get("/", async (req, res) => {
-  if (gameData !== null) return res.status(200).json(gameData);
+luckyDropRouter.get("/", async (req, res) => {
   return res.status(404).json("Missing required game structure data.");
 });
 
-rouletteRouter.post("/play", async (req, res) => {
+luckyDropRouter.post("/play", async (req, res) => {
   const userId = req.body.userId;
   if (!userId) return res.status(400).json({ error: "Missing userId" });
 
@@ -30,4 +29,4 @@ rouletteRouter.post("/play", async (req, res) => {
   }
 });
 
-export default rouletteRouter;
+export default luckyDropRouter;

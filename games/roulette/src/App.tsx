@@ -39,10 +39,10 @@ export default function App() {
       try {
         const res = await api.get("/roulette");
 
-        if (!res || !res.data || !Array.isArray(res.data)) {
+        if (!res || !res.data) {
           throw new Error("Invalid or missing game data");
         }
-
+        console.log(res.data);
         setWheelData(res.data);
       } catch (error) {
         console.error("Error receiving game setup info:", error);
@@ -55,10 +55,10 @@ export default function App() {
   const spin = async (userId: number) => {
     setIsSpinning(true);
     try {
-      const res = await api.post("/roulette/spin", { userId });
+      const res = await api.post("/roulette/play", { userId });
       if (!res?.data) return null;
-      const { spinResult, newPointTotal } = res.data;
-      return { ...spinResult, newPointTotal };
+      const { playResult, newPointTotal } = res.data;
+      return { ...playResult, newPointTotal };
     } catch (error) {
       console.log(error);
       return null;

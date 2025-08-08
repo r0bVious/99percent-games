@@ -9,7 +9,7 @@ export type Segment = {
   multiplier: number;
 };
 
-export const wheelSegments: Segment[] = [
+export const gameData: Segment[] = [
   { label: "2x", multiplier: 2 },
   { label: "Lose", multiplier: 0 },
   { label: "1x", multiplier: 1 },
@@ -28,7 +28,7 @@ export const wheelSegments: Segment[] = [
   { label: "Lose", multiplier: 0 },
 ];
 
-export const spinWheel = (
+export const playGame = (
   betAmount: number
 ): {
   index: number;
@@ -38,8 +38,8 @@ export const spinWheel = (
   returnedAmount: number;
 } => {
   // Pick a random segment index
-  const randomIndex = Math.floor(Math.random() * wheelSegments.length);
-  const selected = wheelSegments[randomIndex];
+  const randomIndex = Math.floor(Math.random() * gameData.length);
+  const selected = gameData[randomIndex];
 
   const returnedAmount = selected.multiplier * betAmount;
   const netChange = returnedAmount - betAmount;

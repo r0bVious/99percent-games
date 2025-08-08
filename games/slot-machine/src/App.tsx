@@ -12,11 +12,7 @@ type Symbol = {
   multiplier: number;
 };
 
-type GameData = {
-  reels: Symbol[][];
-};
-
-type SpinResult = {
+type PlayResult = {
   grid: Symbol[][];
   win: boolean;
   winningLine: number;
@@ -25,14 +21,14 @@ type SpinResult = {
   netChange: number;
 };
 
-interface SpinResponse {
-  spinResult: SpinResult;
+interface PlayResponse {
+  playResult: PlayResult;
   newPointTotal: number;
 }
 
 export default function App() {
   const { player, setPlayerPoints, setShowLoginModal } = usePlayer();
-  const [gameData, setGameData] = useState<GameData>();
+  const [gameData, setGameData] = useState<Symbol[][]>();
   const [isSpinning, setIsSpinning] = useState(false);
   const [resultGrid, setResultGrid] = useState<Symbol[][] | null>(null);
   const [modalAlert, setModalAlert] = useState(false);
@@ -55,10 +51,10 @@ export default function App() {
     initGame();
   }, []);
 
-  const spin = async (userId: number): Promise<SpinResponse | null> => {
+  const spin = async (userId: number): Promise<PlayResponse | null> => {
     setIsSpinning(true);
     try {
-      const res = await api.post("/slotmachine/spin", { userId });
+      const res = await api.post("/slotmachine/play", { userId });
       return res.data;
     } catch (error) {
       console.error("Spin failed:", error);
@@ -83,8 +79,8 @@ export default function App() {
     }
 
     console.log(response);
-    setResultGrid(response.spinResult.grid);
-    setModalInfo(getModalInfo(response.spinResult));
+    setResultGrid(response.playResult.grid);
+    setModalInfo(getModalInfo(response.playResult));
 
     setTimeout(() => {
       setModalAlert(true);
@@ -93,7 +89,7 @@ export default function App() {
     }, 3500);
   };
 
-  const getModalInfo = (result: SpinResult) => {
+  const getModalInfo = (result: PlayResult) => {
     if (!result.win) {
       return { win: false, message: "Try again?" };
     }
@@ -122,7 +118,7 @@ export default function App() {
 
               {/* Reels */}
               <div className="flex gap-4">
-                {gameData.reels.map((reel, i) => (
+                {gameData.map((reel, i) => (
                   <Reel
                     key={i}
                     reelData={reel}

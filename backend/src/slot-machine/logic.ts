@@ -13,7 +13,7 @@ export const symbols = {
   mult20: { id: "mult20", multiplier: 20 },
 };
 
-export const reels: Symbol[][] = [
+export const gameData: Symbol[][] = [
   [
     symbols.mult5,
     symbols.mult10,
@@ -95,7 +95,7 @@ const paylines: [number, number][][] = [
   ],
 ];
 
-export const spinSlotMachine = (
+export const playGame = (
   betAmount: number
 ): {
   grid: Symbol[][];
@@ -107,8 +107,8 @@ export const spinSlotMachine = (
 } => {
   const grid: Symbol[][] = [[], [], []];
 
-  for (let reelIndex = 0; reelIndex < reels.length; reelIndex++) {
-    const reel = reels[reelIndex];
+  for (let reelIndex = 0; reelIndex < gameData.length; reelIndex++) {
+    const reel = gameData[reelIndex];
     const startIndex = Math.floor(Math.random() * reel.length);
 
     for (let row = 0; row < 3; row++) {

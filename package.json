@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:roulette": "pnpm --filter roulette dev",
     "dev:slot-machine": "pnpm --filter slot-machine dev",
-    "dev:backend": "pnpm --filter backend dev"
+    "dev:backend": "pnpm --filter backend dev",
+    "dev:lucky-drop": "pnpm --filter lucky-drop dev"
   },
   "keywords": [],
   "author": "",

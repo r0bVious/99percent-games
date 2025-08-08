@@ -15,9 +15,5 @@
     }
   },
   "files": [],
-  "references": [
-    { "path": "./backend" },
-    { "path": "./shared" },
-    { "path": "./games/roulette" }
-  ]
+  "references": [{ "path": "./backend" }, { "path": "./shared" }]
 }
