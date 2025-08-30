@@ -1,29 +1,57 @@
-# Drop-In Games
+# 🎰 Drop-In Games
 
-As a sort of "stretch-goal" after the primary responsibilities, I was assigned to make a series of smaller "casino-like" games that would interface with the larger app ecosystem where the user could gamble their profile's points.
+As a sort of “stretch goal” after my primary responsibilities, I was assigned to create a series of smaller **casino-style games** that would integrate with the larger app ecosystem, letting users **gamble their profile points**.
 
-Sadly, the plan was cancelled as I was partway through the third game.
-I really enjoyed planning and working on this one :)
+Sadly, the plan was **cancelled** while I was midway through developing the third game.  
+That said, I **really enjoyed** planning and working on this project. 🙂
 
-### Notable Features
+---
 
-**Shared components and contexts**
-This is the big one. Each game can be built from the shared code handling the layout, login, and database querying then deployed independently of the others. I really tried to be as efficient as possible in all ways development.
-_See the shared folder!_
+### ✨ Notable Features
 
-**(Framer) Motion**
-Animation can be tricky. While I've tinkered with animation (and Motion a little), I really tried to methodically approach animation as an integral part of this assignment.
-_Both the wheel and slots are animated with Motion - slots is my favorite result :)_
+#### 🧩 **Shared Components & Contexts**
+This is the **big one**. Each game is built on top of a **shared codebase** that handles:
+- Layout
+- Authentication
+- Database querying  
 
-**Security**
-It would come as no surprise that the game logic's result would need to be calculated on the backend and delivered to the front to prevent frontend tampering. More interestingly, I decided it would be wise to build each game on some hardcoded data that would then dictate both the game logic, the graphics on the front, **and** the animation. My goal was to put full control within one file on the backend.
-Is a game paying out too much? Too little? Maybe it needs more variance? Just change the source-data for that game!
-_Check the individual game folders in the backend/src!_
+Because of this, **each game can be deployed independently** while reusing as much code as possible. I focused heavily on **efficiency and scalability** here.  
+> _Check out the `shared/` folder!_
 
-## Games
+---
 
-1. Roulette / Spin-the-Wheel
-2. Slot Machine
-3. "Ghost Leg" / "Ladder Game" / 사다리타기 **{WIP}**
+#### 🎞 **Framer Motion Integration**
+Animation can be **tricky**... but for this project, I leaned into it.  
+I used **Framer Motion** to create smooth, engaging animations across the games, treating motion as an **integral part of the design** rather than an afterthought.  
 
-_I was in the process of figuring out how best to handle animation for the last one when the 'plug was pulled' on this project. I was considering flipping the whole thing upside down and having a monkey climb up trees :)_
+- The **roulette wheel** spins dynamically 🎡  
+- The **slot machine** has my **favorite animation result** 🎰  
+> _Check out both in action. I really like the slots!_
+
+---
+
+#### 🔐 **Backend-Driven Security & Game Logic**
+Since these games involve **point wagering**, all critical game logic and results are **calculated on the backend** to prevent tampering.
+
+More interestingly, I designed each game to be **data-driven**:  
+- A **single backend config file** dictates:
+  - 🎨 The graphics on the frontend  
+  - 🧠 The game logic  
+  - 🌀 The animation patterns  
+
+Need to tweak a game’s payout rate, variance, or difficulty?  
+**Just edit the data file. No code changes required.**  
+> _See the individual game folders in `backend/src/`!_
+
+---
+
+### 🕹 Games
+
+1. 🎡 **Roulette / Spin-the-Wheel**
+2. 🎰 **Slot Machine**
+3. 🪜 **“Ghost Leg” / “Ladder Game” / 사다리타기** **{WIP}**
+
+I was in the middle of figuring out the **animation system** for the third game when the project was cut short.  
+My animation/design idea for the last game was **Flip the whole thing upside down** and have a **monkey climbing trees** instead. 🐒🌴
+
+---
